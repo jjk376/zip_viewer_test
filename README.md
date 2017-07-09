@@ -1,4 +1,1 @@
-spring file upload test...
-
-
-uploaded.
+drag and drop upload ajax 사용하기.
