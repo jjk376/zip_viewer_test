@@ -16,7 +16,7 @@
         event.preventDefault();
      //   event.stopPropagation(); //얘랑 차이는 뭘까...
         var draggedFiles = event.dataTransfer.files;
-        // Jquery에서는 originalEvent.dataTransfer. .... 형태로 작성해야 한다! 
+        // Jquery에서는 event.originalEvent.dataTransfer. .... 형태로 작성해야 한다! 
         
         uploadFile(draggedFiles);
         
