@@ -27,5 +27,10 @@
 	<context:component-scan base-package="com.sj.controller" />
 	
 	
+	<!-- json view resolver -->
+	<beans:bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+		<beans:property name="contentType" value="application/json;charset=UTF-8" />
+	</beans:bean>
+
 	
 </beans:beans>
