@@ -10,7 +10,8 @@
 	  <link rel="stylesheet" type="text/css" href="resources/static/upload.css">
 <script>
     $(document).ready(function(){
-            $("#dropZone").text("DROP HERE");
+            $(".dropZone").on("drop",draggedFilesValue);
+            $(".dropZone").on("dragover",allowDrop);
     });
 </script>
 </head>
@@ -18,16 +19,13 @@
 
 <div id="uploadDialog">
 <div id="progressbar"><div id="porgressbar_done"></div></div>
-
+<div id="uploadingFileName"></div><div id="uploadedFileNumber"></div>
 </div>
-
 	
-</div>
-<div class="dropZone" ondrop="draggedFilesValue(event)" ondragover="allowDrop(event)">
-    drag here
+<div class="dropZone">DROP HERE
     <table class="fileList">
     </table>
-  </div>
+</div>
 
 </body>
 </html>

@@ -13,8 +13,6 @@ table {
 	width: 100%;
 }
 
-
-
 #dialogBackground {
 	display: none;
 	position: fixed;
@@ -27,6 +25,7 @@ table {
 }
 
 #uploadDialog {
+	display: none;
 	position: fixed;
 	bottom: 0;
 	right: 0;
@@ -52,8 +51,19 @@ table {
 	position: absolute;
 	background: rgba(0, 0, 0, .3);
 	top: 0; left: 0; 
-	width: 100%;
+	width: 0%;
 	height: 100%;
 	z-index: 10;
     text-align: left;
+}
+#uploadingFileName{
+	float:left; 
+	width: 150px;
+	height: 20px;
+}
+#uploadedFileNumber{
+	float: right;
+	width: 50px;
+	height: 20px;
+	text-align: right;
 }
