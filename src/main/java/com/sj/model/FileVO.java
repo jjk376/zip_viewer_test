@@ -4,69 +4,62 @@ import java.util.Date;
 
 public class FileVO {
 
-	private String fileId;
-	private String fileName;
-	private String originalFileName;
-	private long fileSize;
-	private String fileType;
-	private String fileRegisterDate;
-	private String fileModifiedDate;
-	private int directoryId;
-	private int userId;
+	private String file_id;
+	private String user_id;
+	private String internal_file_name;
+	private String file_name;
+	private long file_size;
+	private String file_type;
+	private String file_register_date;
+	private String file_modified_date;
 	
-	public String getFileId() {
-		return fileId;
+	public String getFile_id() {
+		return file_id;
 	}
-	public void setFileId(String fileId) {
-		this.fileId = fileId;
+	public void setFile_id(String file_id) {
+		this.file_id = file_id;
 	}
-	public String getFileName() {
-		return fileName;
+	public String getUser_id() {
+		return user_id;
 	}
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
-	public String getOriginalFileName() {
-		return originalFileName;
+	public String getInternal_file_name() {
+		return internal_file_name;
 	}
-	public void setOriginalFileName(String originalFileName) {
-		this.originalFileName = originalFileName;
+	public void setInternal_file_name(String internal_file_name) {
+		this.internal_file_name = internal_file_name;
 	}
-	public long getFileSize() {
-		return fileSize;
+	public String getFile_name() {
+		return file_name;
 	}
-	public void setFileSize(long fileSize) {
-		this.fileSize = fileSize;
+	public void setFile_name(String file_name) {
+		this.file_name = file_name;
 	}
-	public String getFileType() {
-		return fileType;
+	public long getFile_size() {
+		return file_size;
 	}
-	public void setFileType(String fileType) {
-		this.fileType = fileType;
+	public void setFile_size(long file_size) {
+		this.file_size = file_size;
 	}
-	public String getFileRegisterDate() {
-		return fileRegisterDate;
+	public String getFile_type() {
+		return file_type;
 	}
-	public void setFileRegisterDate(String fileRegisterDate) {
-		this.fileRegisterDate = fileRegisterDate;
+	public void setFile_type(String file_type) {
+		this.file_type = file_type;
 	}
-	public String getFileModifiedDate() {
-		return fileModifiedDate;
+	public String getFile_register_date() {
+		return file_register_date;
 	}
-	public void setFileModifiedDate(String fileModifiedDate) {
-		this.fileModifiedDate = fileModifiedDate;
+	public void setFile_register_date(String file_register_date) {
+		this.file_register_date = file_register_date;
 	}
-	public int getDirectoryId() {
-		return directoryId;
+	public String getFile_modified_date() {
+		return file_modified_date;
 	}
-	public void setDirectoryId(int directoryId) {
-		this.directoryId = directoryId;
-	}
-	public int getUserId() {
-		return userId;
-	}
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setFile_modified_date(String file_modified_ate) {
+		this.file_modified_date = file_modified_ate;
 	}
 	
 	

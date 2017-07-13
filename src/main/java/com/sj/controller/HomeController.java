@@ -6,6 +6,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sj.dao.FileDAO;
 import com.sj.model.FileVO;
 
 /**
@@ -29,7 +31,7 @@ import com.sj.model.FileVO;
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-
+	@Inject private FileDAO dao;
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -56,18 +58,19 @@ public class HomeController {
 		FileVO vo = new FileVO();
 		Calendar cal = Calendar.getInstance();
 		
-		vo.setFileId("");
-	
-		vo.setFileName(uploadFile(file.getOriginalFilename(), file.getBytes()));
-		vo.setOriginalFileName(file.getOriginalFilename());		
-		vo.setFileSize(file.getSize());
-		vo.setFileType(file.getContentType());
-		vo.setFileRegisterDate(cal.get(cal.YEAR) + "-" + (cal.get(cal.MONTH)+1) + "-"
+		vo.setFile_id(dao.getTime());
+		vo.setUser_id("admin");	
+		vo.setFile_name(uploadFile(file.getOriginalFilename(), file.getBytes()));
+		vo.setInternal_file_name(file.getOriginalFilename());		
+		vo.setFile_size(file.getSize());
+		vo.setFile_type(file.getContentType());
+		vo.setFile_register_date(cal.get(cal.YEAR) + "-" + (cal.get(cal.MONTH)+1) + "-"
 				+ cal.get(cal.DATE) + " " + cal.get(cal.HOUR_OF_DAY) + ":" + cal.get(cal.MINUTE));
-		vo.setFileModifiedDate(cal.get(cal.YEAR) + "-" + (cal.get(cal.MONTH)+1) + "-"
+		vo.setFile_modified_date(cal.get(cal.YEAR) + "-" + (cal.get(cal.MONTH)+1) + "-"
 				+ cal.get(cal.DATE) + " " + cal.get(cal.HOUR_OF_DAY) + ":" + cal.get(cal.MINUTE));
-		//vo.setDirectoryId();
-		//vo.setUserId();	
+		
+		System.out.println(dao.getTime());
+		dao.insertFile(vo);
 		return vo;
 	}
 
