@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="resources/jquery-3.2.1.js"></script>
+<script>
+
+$(document).ready(function(){
+	var $output = $("#output");
+	var $menu = $("ul.menu");
+	var count=0;
+	
+//	console.dir(window);
+
+		$(window).on("beforeunload", function(evt) { //unload 에서 
+			// This event fires when a window is about to unload its resources. The document is still visible and the event is still cancelable.
+			//  the HTML5 specification states that calls to window.alert(), window.confirm(), and window.prompt() methods may be ignored during this event.
+			// that various browsers ignore the result of the event and do not ask the user for confirmation at all. 
+			// The document will always be unloaded automatically. Firefox has a switch named dom.disable_beforeunload in about:config to enable this behaviour.
+			console.log("beforeunload", evt);
+			//   evt.returnValue = "페이지를 벗어나시겠습니까?";
+			//	evt.preventDefault(); -> 쓰면 안되용
+			return "여기에 내가 필요한 메시지를 넣구 싶은데 인터넷 익스플로러만 먹힘.";
+		//	When this event returns (or sets the returnValue property to) a value other than null or undefined, the user is prompted to confirm the page unload.
+		// In some browsers, the return value of the event is displayed in this dialog.
+		// Starting with Firefox 4, Chrome 51, Opera 38 and Safari 9.1, a generic string not under the control of the webpage will be shown instead of the returned string. 
+		});
+
+		//	console.dir($(window));
+		$("body").click(function(evt){
+		console.log(evt.clientX, evt.clientY);
+		console.log(evt.pageX, evt.pageY);
+		console.log(evt.pageX - $("#add").offset().left);
+		// 스크롤 한 값도 포함한다.
+	})
+	
+	$("#add").click(function(evt){
+	//	console.dir(evt);
+//		console.log(evt.clientX);
+	//	console.log(evt.clientY);
+		count++;
+		var $newItem = $("<li>new"+count+"</li>");
+		$menu.append($newItem);
+		
+		var event = jQuery.Event("addItem"); // 이벤트 객체 생성.
+		event.item = $newItem;
+		event.itemName = $newItem.text();
+		event.itemLength = $menu.children().length; // 이벤트 데이터 생성.
+		$menu.trigger(event); //이벤트를 발생 시킨다.
+	});
+	
+	$menu.on("addItem", function(e){
+		$output.prepend("<p>추가 아이템 = "+e.itemName+", 아이템 갯수 = "+e.itemLength+"</p>");
+	})
+	
+	// mouseover, mouseout -> 버블링 발생.
+	// mouseenter, mouseleave -> 버블링 발생 X
+	
+	
+	
+
+});
+//$(window).unload(function(){ alert("Bye now!"); });
+
+</script>
+
+</head>
+<body>
+
+<button id="add">추가</button>
+<a href="https://www.naver.com">네이버</a>
+<ul class="menu">
+<li>menu1</li>
+<li>menu2</li>
+<li>menu3</li>
+<li>menu4</li>
+</ul>
+<div id="output" style="height:300px">
+</div>
+</body>
+</html>

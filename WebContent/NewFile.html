@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="resources/jquery-3.2.1.js"></script>
+<script>
+var count=0;
+
+// capture 단계는 이벤트 가장 최상위 노드인 document 에서 시작해html 태그와 body태그를 거쳐 실제 이벤트를 발생시킨 B2 노드 전까지 흐르게 된다. 이 단계를 캡쳐라고 부름, 
+// 이때 이벤트 리스터가 등록되어 있다면 이벤트 리스너가 실행된다.
+// 이벤트 리스너는 capture 단계에서 실행된다.
+// 그렇다면 캡쳐 단계의 용도는 무엇일까? 캡쳐 단계 용도는 주로 타깃/버블링 단계의 이벤트 실행 전에 처리해야 할 사전 작업 혹은 타깃/버블링 단계 이벤트 처리를 제어하는 용도로 가끔 사용.
+		
+		
+$(document).ready(function(){
+	document.addEventListener("click",function(e){
+		count++;
+		console.log("01. document phase = "+e.eventPhase, "count="+count);
+		// e.stopPropagation();
+		// stopPropagation()함수는 이벤트 진행 과정을 막는다는 의미. 이후  캡처와 타겟 단계가 진행 아예 안되겠지. 
+		// 실무에서 캡쳐 단계를 다루는 일은 거의 0에 수렴함.
+	}, true);
+	
+	document.body.addEventListener("click", function(e){
+		count++;
+		console.log("02. body phase="+e.eventPhase,"count = "+count);
+	}, true);
+	
+	$("#A1").get(0).addEventListener("click", function(e){
+		count++;
+		console.log("03. A1 phase="+e.eventPhase,"count = "+count);
+	}, true);
+	
+	$("#B1").get(0).addEventListener("click", function(e){
+		count++;
+		console.log("04. B1 phase="+e.eventPhase,"count = "+count);
+	}, true);
+	
+	$("#A2").get(0).addEventListener("click", function(e){
+		count++;
+		console.log("05. A2 phase="+e.eventPhase,"count = "+count);
+	}, true);	
+
+	
+	// 타깃 단계
+	// 타깃 단계는 이벤트 흐름이 이벤트를 발생시킨 노드에 머무르는 단계를 말하며 이때 이벤트를 발생시킨 노드에 이벤트가 등록되어 있다면 리스너 실행.
+	
+	
+	// 캡쳐 - 버블 단계에 이벤트 등록.
+	$(document).on("click", function(e){
+		count++;
+		console.log("11. document phase="+ e.eventPhase, "count="+count);
+	});
+	
+	$("body").on("click", function(e){
+		count++;
+		console.log("12. body phase="+ e.eventPhase, "count="+count);
+	});
+	
+	$("#A1").on("click", function(e){
+		count++;
+		console.log("13.A1 phase="+ e.eventPhase, "count="+count);
+	});
+	
+	$("#B1").on("click", function(e){
+		count++;
+		console.log("14. B1 phase="+ e.eventPhase, "count="+count);
+	});
+	
+	$("#A2").on("click", function(e){
+		count++;
+		console.log("15. A2 phase="+ e.eventPhase, "count="+count);
+	});
+	
+	$("#B2").on("click", function(e){
+		count++;
+		console.log(this); // this는 이벤트를 발생한 객체
+		console.log("16. B2 phase="+ e.eventPhase, "count="+count);
+	})
+	// $("#B2").addEventListener(이벤트이름, 리스너, false); 와 동ㅈ가이 같다.
+	
+	// 버블 단계는 캡쳐 단계의 역순으로 흐르는 단계다. 타겟 과 버블 단계에서의 이벤트 등록은 동일하다.
+	// 모든 이벤트가 버블링이 발생하진 않는다. ->  Event 종류에 따라 멈추기도 함.
+	
+
+	$("ul.menu li").on("click",function(){
+		console.log(this);
+		console.log($(this).html()); 
+		// 여기서 나타내는 this는 이벤트를 발생한 JS 노드 객체를 가리킨다. 
+	});
+	$("ul.menu li").off("click"); // 이벤트 등록한거 모두떼버림.
+	$("ul.menu li").one("click",function(){
+		alert("한번만 합니다..");
+	});
+	
+	$("a").on("click",function(e){
+		console.dir(e);
+		// e.target == this?
+		e.preventDefault();
+		// 이 방법 대신에 return false;를 하는 방법도 있다. 
+		alert("hii")
+	});
+	
+	$("#A1").trigger("click");
+});
+</script>
+</head>
+<body>
+<a href="www.naver.com">NAVER</a>
+<ul class="menu">
+<li>a</li>
+<li>b</li>
+<li>c</li>
+<li>d</li>
+
+</ul>
+
+<div id="A1">
+	A1
+	<div id="B1">
+		B1
+		<div id="C1">
+			C1
+		</div>
+	</div>
+</div>
+
+<div id="A2">
+	A2
+	<div id="B2">
+		B2
+		<div id="C2">
+			C2
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
