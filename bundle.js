@@ -156,11 +156,50 @@ function toComment(sourceMap) {
  * 
  */
 __webpack_require__(2);
-var hello = __webpack_require__(7);
-var world = __webpack_require__(8);
+//var hello = require('./hello'); 
+//var world = require('./world');
 
-document.write(hello + ', ' + world + '!');
-//빌드 뒤 결과를 보면 ES5로 컴파일 된것을 볼 수 있다.
+var userObject = __webpack_require__(7);
+
+//document.write(`${hello}, ${world}!`);
+
+var tico = new userObject.Vehicle('tico', 50);
+//console.dir(tico);
+tico.drive(); // 'tico runs at 50'
+var sonata = new userObject.Sedan('sonata', 100, 200);
+//console.dir(sonata);
+sonata.drive(); // 'sonata runs at 100'
+sonata.boost(); // 'sonata boosts its speed at 200'
+
+sonata._name = "ddd";
+//private 가시성을 주지는 못함. 다만 암묵적인 규칙이라구 ㅠㅠ
+
+sonata.drive(); // 'ddd runs at 100'
+sonata.boost(); // 'ddd boosts its speed at 200'
+
+//console.dir(Object.getPrototypeOf(tico));
+//console.dir(Object.getPrototypeOf(sonata));
+
+// console.log(sonata.staticMethod());
+//Type Error sonata.staticMethod() is not a function;
+console.log(userObject.Sedan.staticMethod());
+console.log(userObject.Vehicle.staticMethod());
+
+var date = new userObject.SimpleDate(2017, 12, 5);
+var date2 = new userObject.SimpleDate(2017, 12, 10);
+date.addDay(3);
+date.addYear(1);
+console.log(date.getDay());
+console.log(date.getYear());
+console.log(date2.getDay());
+
+var stack = new userObject.Stack();
+stack.push(1);
+stack.push(2);
+stack.push(3);
+stack.push(4);
+stack.push(5);
+console.log(stack.pop());
 
 /***/ }),
 /* 2 */
@@ -202,7 +241,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 exports.i(__webpack_require__(4), "");
 
 // module
-exports.push([module.i, "body{\r\n\tbackground-color: red;\r\n}", ""]);
+exports.push([module.i, "body{\r\n\tbackground-color: white;\r\n}", ""]);
 
 // exports
 
@@ -682,22 +721,150 @@ module.exports = function (css) {
 "use strict";
 
 
-/**
- * 
- */
-module.exports = 'Hello';
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-"use strict";
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
+ * class를 쓰지 않으면 상속이 너무 어렵다. 코드가 몹시 지저분 킹
  * 
  */
-module.exports = 'world';
+var VehicleError = function (_Error) {
+	_inherits(VehicleError, _Error);
+
+	function VehicleError() {
+		_classCallCheck(this, VehicleError);
+
+		return _possibleConstructorReturn(this, (VehicleError.__proto__ || Object.getPrototypeOf(VehicleError)).apply(this, arguments));
+	}
+
+	return VehicleError;
+}(Error);
+
+var Vehicle = function () {
+	function Vehicle(name, speed) {
+		_classCallCheck(this, Vehicle);
+
+		this._name = name;
+		this._speed = speed;
+	}
+
+	_createClass(Vehicle, [{
+		key: "drive",
+		value: function drive() {
+			console.log(this._name + ' runs at ' + this._speed);
+		}
+	}], [{
+		key: "staticMethod",
+		value: function staticMethod() {
+			return "I'm static";
+		}
+	}]);
+
+	return Vehicle;
+}();
+
+var Sedan = function (_Vehicle) {
+	_inherits(Sedan, _Vehicle);
+
+	function Sedan(name, speed, maxSpeed) {
+		_classCallCheck(this, Sedan);
+
+		// extends 하는 것이 있으면 무조건 super 부터 호출 하도록 해야 한다.
+		var _this2 = _possibleConstructorReturn(this, (Sedan.__proto__ || Object.getPrototypeOf(Sedan)).call(this, name, speed));
+
+		_this2._maxSpeed = maxSpeed;
+		return _this2;
+	}
+
+	_createClass(Sedan, [{
+		key: "boost",
+		value: function boost() {
+			console.log(this._name + ' boosts its speed at ' + this._maxSpeed);
+		}
+	}], [{
+		key: "staticMethod",
+		value: function staticMethod() {
+			// 오버라이딩 테스트.
+			return "I'm Sedan Static Method";
+		}
+	}]);
+
+	return Sedan;
+}(Vehicle);
+
+var What = function (_ref) {
+	_inherits(What, _ref);
+
+	function What() {
+		_classCallCheck(this, What);
+
+		return _possibleConstructorReturn(this, (What.__proto__ || Object.getPrototypeOf(What)).apply(this, arguments));
+	}
+
+	return What;
+}(null);
+
+/**
+ * 객체 속성을 비고개로 속일 수 잇는 방법들.
+ * 1.  생성자 안에서 일반 변수를 사용하고, method를 constructor 안에 만들기.
+ */
+
+var SimpleDate = function SimpleDate(year, month, day) {
+	_classCallCheck(this, SimpleDate);
+
+	var _year = year;
+	// let은 블록({}) 내부의 범위에서만 허용됨. var는 (function + {}) 내부에서만 묶인 것과 다름.
+	// var 보다 let을 쓰면 JAVA에서 사용하는 변수 범위처럼 생각할 수 있다.
+	var _month = month;
+	var _day = day;
+	this.addDay = function (num) {
+		_day = _day + num;
+	};
+	this.addYear = function (num) {
+		_year = _year + num;
+	};
+	// property를 건드리기 위한 method는 consturctor 안에 생성되어야 함.
+	this.getDay = function () {
+		return _day;
+	};
+	this.getYear = function () {
+		return _year;
+	};
+};
+
+var Stack = function Stack() {
+	_classCallCheck(this, Stack);
+
+	var MAX = 31;
+	// const는 primitive type에 해당 하는 경우에는 Data 값을 바꿀 수 없다.
+	var _buffer = [];
+	// 그러나 Complex type의 경우 멤버 값 조작이 가능하다 (참조 주소)
+	var _top = 0;
+	this.push = function (num) {
+		if (_buffer.length == MAX) throw "Stack is Full";
+		_buffer.push(num);
+	};
+	this.pop = function () {
+		return _buffer.pop();
+	};
+};
+
+module.exports = {
+	Vehicle: Vehicle,
+	Sedan: Sedan,
+	SimpleDate: SimpleDate,
+	Stack: Stack
+};
+
+/**
+ * ?? module exports는 class를 prototype을 하는지 
+ * 아니면 클래스를 인스턴스한 것(new...)을 export 하는지가 궁금합니다. 
+ */
 
 /***/ })
 /******/ ]);
