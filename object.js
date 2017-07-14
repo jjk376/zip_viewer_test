@@ -115,7 +115,9 @@ class SimpleDate {
 	}
 }
 
-/**
- * ?? module exports는 class를 prototype을 하는지 
- * 아니면 클래스를 인스턴스한 것(new...)을 export 하는지가 궁금합니다. 
- */
+module.export = {
+		Vehicle: Vehicle,
+		Sedan: Sedan,
+		Stack: Stack,
+		
+}
