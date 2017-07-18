@@ -10,8 +10,8 @@
 	</select>
 	
 	<insert id="insertFile">
-	insert into zip_viewer.file (file_id, user_id, internal_file_name, file_name, file_size, file_type, file_register_date, file_modified_date) values
-	(#{file_id}, #{user_id}, #{internal_file_name}, #{file_name}, #{file_size}, #{file_type}, #{file_register_date}, #{file_modified_date})
+	insert into zip_viewer.file (file_id, user_id, file_name, file_size, file_type, file_register_time) values
+	(#{file_id}, #{user_id}, #{file_name}, #{file_size}, #{file_type}, #{file_register_time})
 	</insert>
 
 </mapper>
