@@ -39,7 +39,6 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	@Inject private FileDAO dao;
-	static int key = 0;
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -56,9 +55,6 @@ public class HomeController {
 		FileVO vo = new FileVO();
 		Calendar cal = Calendar.getInstance();
 		
-		vo.setFile_id(cal.get(cal.YEAR) + "-" + (cal.get(cal.MONTH)+1) + "-"
-				+ cal.get(cal.DATE) + " " + cal.get(cal.HOUR_OF_DAY) + ":" + cal.get(cal.MINUTE) + cal.get(cal.SECOND) + cal.get(cal.MILLISECOND));
-		vo.setFile_id(String.valueOf(key++));
 		vo.setUser_id("admin");	
 		
 		UUID uid = UUID.randomUUID();
@@ -76,17 +72,13 @@ public class HomeController {
 			fos.write(buffer, 0, count);
 		}
 	
-		vo.setFile_name(file.getOriginalFilename());
-		vo.setInternal_file_name(internal_file_name);		
+		vo.setFile_name(file.getOriginalFilename());		
 		vo.setFile_size(file.getSize());
 		vo.setFile_type(file.getContentType());
 		vo.setFile_register_time(cal.get(cal.YEAR) + "-" + (cal.get(cal.MONTH)+1) + "-"
 				+ cal.get(cal.DATE) + " " + cal.get(cal.HOUR_OF_DAY) + ":"
 				+ cal.get(cal.MINUTE) + ":" + cal.get(cal.SECOND) + "." + cal.get(cal.MILLISECOND));
-		vo.setFile_modified_time(cal.get(cal.YEAR) + "-" + (cal.get(cal.MONTH)+1) + "-"
-				+ cal.get(cal.DATE) + " " + cal.get(cal.HOUR_OF_DAY) + ":"
-				+ cal.get(cal.MINUTE) + ":" + cal.get(cal.SECOND) + "." + cal.get(cal.MILLISECOND));
-		
+	
 		System.out.println(dao.getTime());    
 		is.close();
 		fos.close();
