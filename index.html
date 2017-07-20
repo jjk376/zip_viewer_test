@@ -1,9 +1,112 @@
-<!-- index.html -->
 <html>
-  <head>
-    <meta charset="utf-8">
-  </head>
-  <body>
-    <script type="text/javascript" src="bundle.js"></script>
-  </body>
+<head>
+<title>Compress File Viewer</title>
+<meta charset="utf-8">
+<script src="lib/jquery/jquery-3.2.1.js"></script>
+<script type="text/javascript" src="bundles/bootstrap.bundle.js"></script>
+<script type="text/javascript" src="bundles/entry.bundle.js"></script>
+
+<link rel="stylesheet" type="text/css" href="src/css/my.css">
+
+</head>
+
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Compress File Viewer</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li><a href="#">UserName</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<button class="btn btn-danger navbar-btn dropdown-toggle"
+						type="button" data-toggle="dropdown">
+						Upload Progress <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a href="#">subTask.zip upload Done</a></li>
+						<li><a href="#">subTasj2.zip upload Done</a></li>
+						<li><a href="#">image.png upload Done</a></li>
+					</ul>
+				</li>
+				<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>
+						Logout</a></li>
+			</ul>
+		</div>
+	</nav>
+<!-- 이부분 삽입 안하고 해결 못하나 으으으으 주말에 찾아볼것.  -->
+	<nav class="navbar navbar-default ">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Compress File Viewer</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li><a href="#">UserName</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<button class="btn btn-danger navbar-btn dropdown-toggle"
+						type="button" data-toggle="dropdown">
+						Upload Progress <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a href="#">subtask upload Done</a></li>
+						<li><a href="#">uploading now</a></li>
+						<li><a href="#">upload dispatched</a></li>
+					</ul>
+				</li>
+				<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>
+						Logout</a></li>
+			</ul>
+		</div>
+	</nav>
+<!--  -->
+	<div class="container">
+		<div class="jumbotron dropZone">
+			<h1 style="color: 'gray'">Drop Here</h1>
+		</div>
+	</div>
+
+	<div class="container"></div>
+	<div class="container">
+
+		<div class="row">
+			<div class="col-sm-2">
+				<img src="src/img/file-zip.png" class="media-object"
+					style="width: 100px" />
+				<h3>subTask.zip</h3>
+			</div>
+			<div class="col-sm-2">
+				<div style="margin: 2px">
+					<img src="src/img/file-zip.png" class="media-object"
+						style="width: 100px" />
+					<h3>subTask2.zip</h3>
+				</div>
+			</div>
+			
+			<div class="col-sm-2">
+				<img src="src/img/file-png.png" class="media-object"
+					style="width: 100px" />
+				<h3>image.png</h3>
+			</div>
+		</div>
+
+		<div class="row"></div>
+	</div>
+
+	<div class="container"></div>
+	<div class="container ZipViewerBackground">
+		<nav class="navbar navbar-default ">
+			<!-- phantom markup.. -->
+		</nav>
+		<div class="row-fluid">
+			<div class="span2">file Tree Zone</div>
+			<div class="span10">file List Zone</div>
+		</div>
+	</div>
+	<div class="container">
+	</div>
+</body>
 </html>

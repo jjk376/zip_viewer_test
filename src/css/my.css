@@ -1,0 +1,24 @@
+@charset "UTF-8";
+.dropZone {
+	border-style: dashed;
+	border-width: 2px;
+	text-align: center;
+	color: gray;
+}
+
+.bodrderRight{
+	border-right: 1px solid gray;
+}
+.ZipViewerBackground {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(255, 255, 255, 0.9);
+	z-index: 1;
+}
+.overFlowScroll{
+  overflow: Scroll;
+}
