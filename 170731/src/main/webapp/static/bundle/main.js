@@ -192,7 +192,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(12);
+var	fixUrls = __webpack_require__(13);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -522,9 +522,9 @@ var _FileListController = __webpack_require__(4);
 
 var _FileListController2 = _interopRequireDefault(_FileListController);
 
-__webpack_require__(10);
+__webpack_require__(11);
 
-__webpack_require__(13);
+__webpack_require__(14);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -556,15 +556,19 @@ var _FileListModel = __webpack_require__(5);
 
 var _FileListModel2 = _interopRequireDefault(_FileListModel);
 
-var _FileListView = __webpack_require__(7);
+var _ZipFileController = __webpack_require__(7);
+
+var _ZipFileController2 = _interopRequireDefault(_ZipFileController);
+
+var _FileListView = __webpack_require__(8);
 
 var _FileListView2 = _interopRequireDefault(_FileListView);
 
-var _FileUploadStateListView = __webpack_require__(8);
+var _FileUploadStateListView = __webpack_require__(9);
 
 var _FileUploadStateListView2 = _interopRequireDefault(_FileUploadStateListView);
 
-var _DropHandler = __webpack_require__(9);
+var _DropHandler = __webpack_require__(10);
 
 var _DropHandler2 = _interopRequireDefault(_DropHandler);
 
@@ -611,10 +615,11 @@ var FileListController = function () {
 	}, {
 		key: "_bindDynamicClickEvents",
 		value: function _bindDynamicClickEvents() {
+			var This = this;
 			var fileListDom = this._view.getDomForEventBinding();
 			fileListDom.on("click", ".file", function (event) {
-				console.dir("zipFile Viewer starts here...");
-				new zipFileController();
+				var fileId = jQuery(this).data("fileId");
+				if (This._model.isFileZip(fileId)) new _ZipFileController2.default(fileId);else console.log("Not a zip File");
 			});
 		}
 	}]);
@@ -663,6 +668,11 @@ var FileListModel = function (_EventEmitter) {
 	}
 
 	_createClass(FileListModel, [{
+		key: "isFileZip",
+		value: function isFileZip(fileId) {
+			return this._fileList[fileId].isZip;
+		}
+	}, {
 		key: "_pushFiles",
 		value: function _pushFiles(json) {
 			console.dir(json); //
@@ -699,7 +709,7 @@ var FileListModel = function (_EventEmitter) {
 				type: "GET",
 				success: function success(results) {
 					var resultFileList = This._makeResponseJSON(results);
-					resultFileList = resultFileList.items;
+					//		resultFileList = resultFileList.items;
 					resultFileList.forEach(function (resultFile) {
 						This._pushFiles(resultFile);
 					});
@@ -1088,6 +1098,30 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ZipFileController = function ZipFileController(fileId) {
+	_classCallCheck(this, ZipFileController);
+
+	this._zipListView;
+	this._zipTreeView;
+	this._zipModel;
+	console.log("create ZipFile controller : " + fileId);
+};
+
+exports.default = ZipFileController;
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1107,7 +1141,7 @@ var FileListView = function () {
 	}, {
 		key: "rendering",
 		value: function rendering(json) {
-			var innerDiv = jQuery("<div></div>").addClass("col-xs-2 file").data("id", json.fileId);
+			var innerDiv = jQuery("<div></div>").addClass("col-xs-2 file").data("fileId", json.fileId);
 			var img = jQuery("<img class='media-object' style='height: 100px'></img>");
 			img.attr("src", "/static/img/file-" + json.fileType + ".png").attr("onerror", "this.src='/static/img/file-common.png'");
 
@@ -1133,7 +1167,7 @@ var FileListView = function () {
 exports.default = FileListView;
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1184,7 +1218,7 @@ var FileUploadStateListView = function () {
 exports.default = FileUploadStateListView;
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1206,13 +1240,13 @@ var DragAndDropAction = {
 exports.default = DragAndDropAction;
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(11);
+var content = __webpack_require__(12);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -1237,7 +1271,7 @@ if(false) {
 }
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(undefined);
@@ -1251,7 +1285,7 @@ exports.push([module.i, "\r\n/* jjk376 */\r\n#dropZone {\r\n\tborder-style: dash
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 
@@ -1346,13 +1380,13 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(14);
+var content = __webpack_require__(15);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -1377,7 +1411,7 @@ if(false) {
 }
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(undefined);

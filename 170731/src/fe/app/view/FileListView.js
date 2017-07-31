@@ -6,7 +6,7 @@ class FileListView {
 		return this._dom;
 	}
 	rendering(json) {
-		let innerDiv = jQuery("<div></div>").addClass("col-xs-2 file").data("id",json.fileId);
+		let innerDiv = jQuery("<div></div>").addClass("col-xs-2 file").data("fileId",json.fileId);
 		let img = jQuery("<img class='media-object' style='height: 100px'></img>");
 		img.attr("src", "/static/img/file-"+json.fileType+".png").attr("onerror","this.src='/static/img/file-common.png'");
 		

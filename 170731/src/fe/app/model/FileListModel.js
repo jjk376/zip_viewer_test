@@ -5,6 +5,9 @@ class FileListModel extends EventEmitter {
 		this._fileList = {}; //json Dictionary type
 		this._dispatchedFiles = []; //files 타입 배열들
 	}
+	isFileZip(fileId){
+		return (this._fileList[fileId].isZip);
+	}
 	_pushFiles(json){
 		console.dir(json); //
 		let fileType = json.fileName.slice(json.fileName.lastIndexOf(".") + 1); //확장자 구하기.
@@ -27,6 +30,7 @@ class FileListModel extends EventEmitter {
 		else resultResponse = response;
 		return resultResponse;
 	}
+	
 	apiFileList() {
 		let This = this;
 		$.ajax({

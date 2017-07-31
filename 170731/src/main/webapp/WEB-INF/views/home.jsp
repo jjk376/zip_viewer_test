@@ -8,7 +8,7 @@
 
 <link rel="stylesheet" type="text/css"  href="/static/dist/css/bootstrap.css">
 <script src="/static/bundle/jquery-3.2.1.js"></script>
-<script src="/static/bundle/main.js?ver=6"></script>
+<script src="/static/bundle/main.js?ver=25"></script>
 <script src="/static/dist/js/bootstrap.js"></script>
 <style>
 

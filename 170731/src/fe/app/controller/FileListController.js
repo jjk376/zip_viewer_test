@@ -2,7 +2,7 @@
  *
  */
 import FileListModel from "../model/FileListModel.js"
-
+import ZipFileController from "../controller/ZipFileController.js"
 import FileListView from "../view/FileListView.js"
 import FileUploadStateListView from "../view/FileUploadStateListView.js"
 
@@ -37,11 +37,14 @@ class FileListController {
 		$("#dropZone").on("drop", {toModel : this._model}, DragAndDropAction.drop);
 		$("#dropZone").on("dragover",DragAndDropAction.dragover);
 	}
-	_bindDynamicClickEvents(){
+	_bindDynamicClickEvents(){ 
+		let This = this;
 		let fileListDom = this._view.getDomForEventBinding()
 		fileListDom.on("click", ".file", function(event){
-			console.dir("zipFile Viewer starts here...");
-			new zipFileController();
+			let fileId = jQuery(this).data("fileId");
+			if(This._model.isFileZip(fileId))
+				new ZipFileController(fileId); 
+			else console.log("Not a zip File");
 		});
 	}
 }
